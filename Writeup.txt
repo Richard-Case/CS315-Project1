@@ -1,0 +1,14 @@
+20230927
+- Project created
+- Typed project pseudocode
+- Created writeup file
+- Created header and implementation file for algorithms
+	- I have a preference for this type of setup, because it helps me stay organized.
+- 
+
+Writeup instructions:
+	To Include...
+	- Instructions for compiling code
+	- Explanation of implementations
+	- Discussion of whether or not the data seems normal
+	- Runtime estimations and graph

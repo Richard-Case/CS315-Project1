@@ -48,6 +48,7 @@ int main(int numArgs, char* argPointers[])
 
 	dataSize = sizeof(userData) / sizeof(userData[0]);
 
+
 	// CALLING INSERTION SORT METHOD
 	std::cout << std::endl << "INSERTION SORT..." << std::endl;
 
@@ -61,6 +62,18 @@ int main(int numArgs, char* argPointers[])
 	sort.CreateFile(insertData, dataSize, "insertOutputFile.csv");
 	
 
+	// CALLING MERGE SORT METHOD
+	std::cout << std::endl << "MERGE SORT..." << std::endl;
+
+	pokemon mergeData[dataSize];
+	for (int index = 0; index < dataSize; index++) { mergeData[index] = userData[index]; }
+
+	//Sorting the data...
+	sort.MergeSort(mergeData, 0, dataSize - 1);
+
+	std::cout << "Finished with " << sort.getMergeCount() << " operations." << std::endl << std::endl << std::endl;
+	sort.CreateFile(mergeData, dataSize, "mergeOutputFile.csv");
+
 
 	// CALLING QUICKSORT METHOD
 	std::cout << std::endl << "QUICKSORT..." << std::endl;
@@ -73,20 +86,6 @@ int main(int numArgs, char* argPointers[])
 	
 	std::cout << "Finished with " << sort.getQuickCount() << " operations." << std::endl;
 	sort.CreateFile(quickData, dataSize, "quickOutputFile.csv");
-
-
-
-	// CALLING MERGE SORT METHOD
-	std::cout << std::endl << "MERGE SORT..." << std::endl;
-
-	pokemon mergeData[dataSize];
-	for (int index = 0; index < dataSize; index++) { mergeData[index] = userData[index]; }
-
-	//Sorting the data...
-	sort.MergeSort(mergeData, 0, dataSize - 1);
-
-	std::cout << "Finished with " << sort.getMergeCount() << " operations." << std::endl << std::endl << std::endl;
-	sort.CreateFile(mergeData, dataSize, "mergeOutputFile.csv");
 
 	return 0;
 }

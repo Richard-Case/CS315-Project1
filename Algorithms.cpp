@@ -167,16 +167,4 @@ int Sorting::Partition(pokemon userData[], int start, int end)
 	return (outerIndex + 1);
 }
 
-
-// Function to print an array
-void Sorting::DisplayData(pokemon userData[], int size)
-{
-	for (int index = 0; index < size; index++)
-	{
-		std::cout << userData[index].dexNum << ", " << userData[index].power << " || ";
-	}
-
-	std::cout << std::endl << std::endl;
-}
-
 #endif

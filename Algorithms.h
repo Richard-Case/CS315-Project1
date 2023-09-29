@@ -40,7 +40,6 @@ public:
 	void InsertionSort(pokemon userData[], int size);
 	void MergeSort(pokemon userData[], const int start, const int end);
 	void QuickSort(pokemon userData[], const int start, const int end);
-	void DisplayData(pokemon userData[], int size);
 	void CreateFile(pokemon userData[], int &size, std::string fileName);
 
 private:

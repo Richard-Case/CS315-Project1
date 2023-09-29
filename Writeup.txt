@@ -13,17 +13,19 @@
 	- Wrote initial code for simple integer arrays
 	- Used console outputs to ensure basic version of program functioned and display run counts
 - ISSUE: I seem to be unable to get a for loop working for the actual merge in the Merge method.
-	- Found a solution online which suggests while-loops. Using those for now, will fix later if I have time. (https://www.geeksforgeeks.org/merge-sort/)
+	- Found a solution online which suggests while-loops. (https://www.geeksforgeeks.org/merge-sort/)
 - Refactored Code for readability.
 - Created "pokemon" struct to prepare for formatting of data being read from csv files
 	- Converted arrays of integers into arrays of structs
 - Wrote code to read data from file, using a hard-coded file name
-	- Struggling with how to import the data, given that I need to assign it as different datatypes.
-	- Found a function include in <string> which can conver strings to integers.
-		- Problem resolved after implementing.
-- Converted to accept filename as a user argument at runtime.
+	- Struggling with how to import the data, given that I need to assign it as different datatypes
+	- Found a function include in <string> which can conver strings to integers
+		- Problem resolved after implementing
+- Converted to accept filename as a user argument at runtime
 
-- Stretch Goal: Outputing data to individual, new csv files.
+- Stretch Goal: Outputing data to individual, new csv files
+	- Completed
+	- Removed code to display sorted arrays as console outputs
 
 Writeup instructions:
 	To Include...

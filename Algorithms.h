@@ -5,29 +5,48 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <fstream>
+#include <ios>
+#include <sstream>
 
 using std::vector;
+
+struct pokemon
+{
+	std::string dexNum;
+	int power;
+};
+
+std::istream& operator>>(std::istream& input, pokemon& poke)
+{
+	char comma;
+	input >> poke.dexNum;
+	input >> comma;
+	input >> poke.power;
+
+	return input;
+}
 
 class Sorting
 {
 public:
 	Sorting();
 
-	// Getters
+	// Getters...
 	int getInsertCount();
 	int getMergeCount();
 	int getQuickCount();
 
-	void InsertionSort(int userData[], int N);
-	void MergeSort(int array[], const int begin, const int end);
-	void QuickSort(int arr[], const int start, const int end);
-	void DisplayData(int A[], int size);
+	void InsertionSort(pokemon userData[], int size);
+	void MergeSort(pokemon userData[], const int start, const int end);
+	void QuickSort(pokemon userData[], const int start, const int end);
+	void DisplayData(pokemon userData[], int size);
+	void CreateFile(pokemon userData[], int &size, std::string fileName);
 
 private:
-	void Merge(int userData[], const int left, const int mid, const int right);
-
-	int Partition(int arr[], int low, int high);
-	void Swap(int *first, int *second);
+	void Merge(pokemon userData[], const int start, const int mid, const int end);
+	void Exchange(pokemon *first, pokemon *second);
+	int Partition(pokemon userData[], int start, int end);
 
 	int insertCount;
 	int mergeCount;

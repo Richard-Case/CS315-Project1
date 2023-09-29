@@ -1,10 +1,29 @@
-20230927
+20230927:
 - Project created
-- Typed project pseudocode
+- Created initial main function and pseudocode
 - Created writeup file
 - Created header and implementation file for algorithms
 	- I have a preference for this type of setup, because it helps me stay organized.
-- 
+- Copied pseudocode from notes into implementation file.
+
+20230928:
+- Converted implementation pseudocode to real code
+	- Left in-place as comments, where necessary
+- Converted main function speudocode into real code
+	- Wrote initial code for simple integer arrays
+	- Used console outputs to ensure basic version of program functioned and display run counts
+- ISSUE: I seem to be unable to get a for loop working for the actual merge in the Merge method.
+	- Found a solution online which suggests while-loops. Using those for now, will fix later if I have time. (https://www.geeksforgeeks.org/merge-sort/)
+- Refactored Code for readability.
+- Created "pokemon" struct to prepare for formatting of data being read from csv files
+	- Converted arrays of integers into arrays of structs
+- Wrote code to read data from file, using a hard-coded file name
+	- Struggling with how to import the data, given that I need to assign it as different datatypes.
+	- Found a function include in <string> which can conver strings to integers.
+		- Problem resolved after implementing.
+- Converted to accept filename as a user argument at runtime.
+
+- Stretch Goal: Outputing data to individual, new csv files.
 
 Writeup instructions:
 	To Include...

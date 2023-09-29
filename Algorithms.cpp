@@ -17,21 +17,21 @@ int Sorting::getQuickCount() { return quickCount; }
 
 
 // INSERTION SORT...
-void Sorting::InsertionSort(int userData[], int N)
+void Sorting::InsertionSort(pokemon userData[], int N)
 {
 	for (int fIndex = 1; fIndex < N; fIndex++)
 	{
-		int key = userData[fIndex];
+		pokemon key = userData[fIndex];
 		
 		// Inserting array into sorted sequence
 		int wIndex = fIndex - 1;
-		while (wIndex >= 0 && userData[wIndex] > key)
+		while (wIndex >= 0 && userData[wIndex].power > key.power)
 		{
 			// The actual insertion...
 			userData[wIndex + 1] = userData[wIndex];
 
 			wIndex--;
-			insertCount++; // counting runs of INSERTION SORT
+			insertCount++; // Counting operations of INSERTION SORT
 		}
 
 		userData[wIndex + 1] = key;
@@ -40,21 +40,21 @@ void Sorting::InsertionSort(int userData[], int N)
 
 
 // MERGE SORT...
-void Sorting::MergeSort(int array[], const int start, const int end)
+void Sorting::MergeSort(pokemon userData[], int const start, int const end)
 {
 	if (start < end)
 	{
-		int mid = (start + (end - start) / 2);
+		int mid = (start + end) / 2;
 
-		MergeSort(array, start, mid);
-		MergeSort(array, mid + 1, end);
-		Merge(array, start, mid, end);
+		MergeSort(userData, start, mid);
+		MergeSort(userData, mid + 1, end);
+		Merge(userData, start, mid, end);
 	}
 }
 
 
 // QUICKSORT...
-void Sorting::QuickSort(int userData[], const int start, const int end)
+void Sorting::QuickSort(pokemon userData[], const int start, const int end)
 {
 	if (start < end)
 	{
@@ -66,86 +66,114 @@ void Sorting::QuickSort(int userData[], const int start, const int end)
 }
 
 
+void Sorting::CreateFile(pokemon userData[], int &size, std::string fileName)
+{
+	// Open a CSV file for writing.
+  	std::ofstream outputFile(fileName);
+
+	// Write the array to the file.
+	outputFile << "Pokemon Number, Total Stats" << std::endl;
+	
+	for (int index = 0; index < size; index++)
+	{
+		outputFile << userData[index].dexNum << "," << std::to_string(userData[index].power) << std::endl;
+	}
+}
+
 
 //////****HELPER METHODS****//////
 
-void Sorting::Merge(int userData[], const int left, const int mid, const int right)
+void Sorting::Merge(pokemon userData[], const int start, const int mid, const int end)
 {
-	int const sizeLeft = mid - left + 1;
-	int const sizeRight = right - mid;
+	const int leftSize = mid - start + 1;
+	const int rightSize = end - mid;
  
-	// Create temp arrays
-	int *leftArray = new int[sizeLeft];
-	int *rightArray = new int[sizeRight];
+	// Temporary Arrays...	
+	pokemon leftArray[leftSize];
+	pokemon rightArray[rightSize];
  
-	// Copy data to temp arrays leftArray[] and rightArray[]
-	for (int fLeftIndex = 0; fLeftIndex < sizeLeft; fLeftIndex++) { leftArray[fLeftIndex] = userData[left + fLeftIndex]; }
-	for (int fRightIndex = 0; fRightIndex < sizeLeft; fRightIndex++) { rightArray[fRightIndex] = userData[mid + 1 + fRightIndex]; }
+	// Copying data into temporary arrays...
+	for (int leftIndex = 0; leftIndex < leftSize; leftIndex++) { leftArray[leftIndex] = userData[start + leftIndex]; }
+	for (int rightIndex = 0; rightIndex < rightSize; rightIndex++) { rightArray[rightIndex] = userData[mid + 1 + rightIndex]; }
 
-	int leftIndex = 0;
-	int rightIndex = 0;
+	int leftSubIndex = 0, rightSubIndex = 0;
+	int mergedIndex = start;
  
-	// merge separate arrays back into single array, comparing values
-	for (int mergedIndex = left; mergedIndex < right; mergedIndex++)
+	// Merging temporary arrays back in a single array...
+	while (leftSubIndex < leftSize && rightSubIndex < rightSize)
 	{
-		if (leftArray[leftIndex] <= rightArray[rightIndex])
+		if (leftArray[leftSubIndex].power <= rightArray[rightSubIndex].power)
 		{
-			userData[mergedIndex] = leftArray[leftIndex];
-			leftIndex++;
+			userData[mergedIndex] = leftArray[leftSubIndex];
+			leftSubIndex++;
 		}
 		else
 		{
-			userData[mergedIndex] = rightArray[rightIndex];
-			rightIndex++;
+			userData[mergedIndex] = rightArray[rightSubIndex];
+			rightSubIndex++;
 		}
-		
+
 		mergedIndex++;
-		mergeCount++; // counting runs of MERGE SORT
+		mergeCount++; // Counting operations of MERGE SORT
 	}
-
-	delete[] leftArray;
-	delete[] rightArray;
+ 
+	// Copying any remaining elements of leftArray...
+	while (leftSubIndex < leftSize)
+	{
+		userData[mergedIndex] = leftArray[leftSubIndex];
+		leftSubIndex++;
+		mergedIndex++;
+		mergeCount++; // Counting operations of MERGE SORT
+	}
+ 
+	// Copying any remaining elements of rightArray...
+	while (rightSubIndex < rightSize)
+	{
+		userData[mergedIndex] = rightArray[rightSubIndex];
+		rightSubIndex++;
+		mergedIndex++;
+		mergeCount++; // Counting operations of MERGE SORT
+	}
 }
 
 
-// Partition the array using the last element as the pivot
-int Sorting::Partition(int userData[], int start, int end)
+void Sorting::Exchange(pokemon *first, pokemon *second)
 {
-	int pivot = userData[end];
- 
-	int index = (start - 1);
- 
-	for (int j = start; j <= end - 1; j++) {
- 
-		// If current element is smaller than the pivot
-		if (userData[j] < pivot) {
- 
-			// Increment index of smaller element
-			index++;
-			Swap(&userData[index], &userData[j]);
-		}
-	}
-
-	Swap(&userData[index + 1], &userData[end]);
-	return (index + 1);
-}
-
-
-void Sorting::Swap(int *first, int *second)
-{
-	int t = *first;
+	pokemon t = *first;
 	*first = *second;
 	*second = t;
-	quickCount++; // counting runs of Quicksort
+	quickCount++; // Counting operations of Quicksort
+}
+
+
+int Sorting::Partition(pokemon userData[], int start, int end)
+{
+	pokemon pivot = userData[end];
+	int outerIndex = (start - 1);
+ 
+	for (int innerIndex = start; innerIndex < end; innerIndex++) {
+ 
+		// If current element is smaller than the pivot
+		if (userData[innerIndex].power < pivot.power)
+		{
+			// Increment index of smaller element
+			outerIndex++;
+			Exchange(&userData[outerIndex], &userData[innerIndex]);
+		}
+	}
+
+	Exchange(&userData[outerIndex + 1], &userData[end]);
+	
+	return (outerIndex + 1);
 }
 
 
 // Function to print an array
-void Sorting::DisplayData(int userData[], int size)
+void Sorting::DisplayData(pokemon userData[], int size)
 {
 	for (int index = 0; index < size; index++)
 	{
-		std::cout << userData[index] << " || ";
+		std::cout << userData[index].dexNum << ", " << userData[index].power << " || ";
 	}
 
 	std::cout << std::endl << std::endl;

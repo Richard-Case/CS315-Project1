@@ -78,6 +78,8 @@ void Sorting::CreateFile(pokemon userData[], int &size, std::string fileName)
 	{
 		outputFile << userData[index].dexNum << "," << std::to_string(userData[index].power) << std::endl;
 	}
+
+	outputFile.close();
 }
 
 
